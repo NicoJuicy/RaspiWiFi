@@ -48,7 +48,7 @@ CONFIGURATION:
 
 == You will be prompted to set a few variables during the Initial Setup script:
 
-==== "SSID Prefix" [default: "RaspiWiFi Setup"]: This is the prefix of the SSID
+==== "SSID Prefix" [default: "OneMeter Gateway"]: This is the prefix of the SSID
       that your Pi will broadcast for you to connect to during
       Configuration Mode (Host Mode). The last four of you Pi's serial number
       will be appended to whatever you enter here.
@@ -92,7 +92,7 @@ USAGE:
 == Connect to the "RaspiWiFi[xxxx] Setup" access point using any other WiFi enabled
 device.
 
-== Navigate to [10.0.0.1], [raspiwifisetup.com], or
+== Navigate to [10.0.0.1], [onemeter.com], or
 [idliketoconfigurethewifionthisdevicenowplease.com] (I was debating whether this
 was funny or not and, yes, it was) using any web browser on the device you
 connected with. (don't forget to manually start with [https://] when using SSL mode)
