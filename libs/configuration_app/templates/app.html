@@ -28,12 +28,12 @@
       {% if config_hash['wpa_enabled'] == '1': %}
         WPA Mode: <span class="font-weight-bold">ENABLED</span><br />
         Key: <span class="font-weight-bold">{{ config_hash['wpa_key'] }}</span><br />
-        <a href="{{ url_for('wpa_settings') }}" class="alert-link">Configure</a>
+        <a href="{{ url_for('wpa_settings') }}" class="alert-link">Click to configure</a>
       {% endif %}
 
       {% if config_hash['wpa_enabled'] == '0': %}
         WPA Mode: DISABLED<br />
-        <a href="{{ url_for('wpa_settings') }}" class="alert-link">Configure</a>
+        <a href="{{ url_for('wpa_settings') }}" class="alert-link">Click to configure</a>
       {% endif %}
     </div>
 
