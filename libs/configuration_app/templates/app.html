@@ -3,7 +3,7 @@
 {% block body %}
   <div id="mainContent">
 
-    <img class="mb-4" src="{{ url_for('static', filename='one-meter.svg') }}" alt="" width="125" height="125">
+    <a href="/"><img class="mb-4" src="{{ url_for('static', filename='one-meter.svg') }}" alt="" width="125" height="125"></a>
     <h1>WiFi Setup</h1>
 
     <form action="{{ url_for('save_credentials') }}" method=post>
@@ -14,13 +14,13 @@
             <option value='{{ ssid }}'>{{ ssid }}</option>
           {% endfor %}
         </select>
-        <a href="{{ url_for('manual_ssid_entry') }}" class="manualSSIDEntry small d-block">Manual SSID entry</a>
+        <a href="{{ url_for('manual_ssid_entry') }}" class="manualSSIDEntry small d-block text-success">Manual SSID entry</a>
       </div>
       <div class="form-group">
         <label for="wifi_key">Your Wifi password</label>
         <input type="password" name="wifi_key", class="wifiNetworkInputs form-control">
       </div>
-      <button type="submit" class="wifiConnectButton btn btn-lg btn-primary btn-block">Submit</button>
+      <button type="submit" class="wifiConnectButton btn btn-lg btn-success btn-block">Submit</button>
     </form>
 
 
