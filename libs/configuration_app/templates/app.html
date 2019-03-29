@@ -2,41 +2,38 @@
 
 {% block body %}
   <div id="mainContent">
+
+    <img class="mb-4" src="{{ url_for('static', filename='one-meter.svg') }}" alt="" width="72" height="72">
+    <h1>WiFi Setup</h1>
+
+    <form action="{{ url_for('save_credentials') }}" method=post>
+      <div class="form-group">
+        <label for="ssid">Select your WiFi network</label>
+        <select class="form-control" id="ssid">
+          {% for ssid in wifi_ap_array %}
+            <option value='{{ ssid }}'>{{ ssid }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="wifi_key">Your Wifi password</label>
+        <input type="password" name="wifi_key", class="wifiNetworkInputs form-control">
+      </div>
+      <button type="submit" class="wifiConnectButton btn btn-primary">Submit</button>
+    </form>
+
+    <a href="{{ url_for('manual_ssid_entry') }}" class="manualSSIDEntry d-block">manual SSID entry -></a>
+
     <div id="wpaStatus">
-      <ul>
         {% if config_hash['wpa_enabled'] == '1': %}
-          <li><a href="{{ url_for('wpa_settings') }}">Config. Mode WPA: ENABLED</a></li>
-          <li><a href="{{ url_for('wpa_settings') }}">Key: {{ config_hash['wpa_key'] }}</a></li>
+          <a href="{{ url_for('wpa_settings') }}">Config. Mode WPA: ENABLED</a>
+          <a href="{{ url_for('wpa_settings') }}">Key: {{ config_hash['wpa_key'] }}</a>
         {% endif %}
 
         {% if config_hash['wpa_enabled'] == '0': %}
-          <li><a href="{{ url_for('wpa_settings') }}">Config. Mode WPA: DISABLED</a></li>
+          <a href="{{ url_for('wpa_settings') }}">Config. Mode WPA: DISABLED</a>
       {% endif %}
-      </ul>
     </div>
 
-    <h1>WiFi Setup</h1>
-    <div class="wifiIcon"></div>
-
-    <form action="{{ url_for('save_credentials') }}" method=post>
-      <ul>
-        <li><label for="ssid">Select your WiFi network</label></li>
-
-        <li class="wifiNetwork">
-          <select id="ssid" name="ssid", class="wifiNetworkInputs">
-            {% for ssid in wifi_ap_array %}
-              <option value='{{ ssid }}'>{{ ssid }}</option>
-            {% endfor %}
-          </select>
-        </li>
-
-        <li><a href="{{ url_for('manual_ssid_entry') }}" class="manualSSIDEntry">manual SSID entry -></a></li>
-
-        <li><label for="wifi_key">Your Wifi password</label></li>
-        <li><input type="password" name="wifi_key", class="wifiNetworkInputs"></li>
-
-        <input type="submit", class="wifiConnectButton">
-      </ul>
-    </form>
   </div>
 {% endblock %}

@@ -1,1 +1,3 @@
 __pycache__
+libs/configuration_app/app_dev.py
+libs/configuration_app/raspiwifi.conf
