@@ -7,9 +7,9 @@
     <h1>WiFi Setup</h1>
 
     <form action="{{ url_for('save_credentials') }}" method=post>
-      <div class="form-group">
+      <div class="form-group wifiNetwork">
         <label for="ssid">Select your WiFi network</label>
-        <select class="form-control" id="ssid">
+        <select class="form-control wifiNetworkInputs" id="ssid">
           {% for ssid in wifi_ap_array %}
             <option value='{{ ssid }}'>{{ ssid }}</option>
           {% endfor %}
