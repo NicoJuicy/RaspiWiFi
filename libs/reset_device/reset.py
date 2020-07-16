@@ -1,16 +1,32 @@
 import RPi.GPIO as GPIO
 import os
+import re
 import time
 import subprocess
 import reset_lib
+
+def get_serial():
+    pattern = r'^Serial\s*:\s*(\w+)$'
+    cpuinfo = subprocess.check_output(['cat', '/proc/cpuinfo']).decode()
+    lines = cpuinfo.split('\n')
+
+    for line in lines:
+        match = re.match(pattern, line.strip())
+        if not match:
+            continue
+        return match.group(1)
+
+    return ''
+
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(18, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
 counter = 0
-serial_last_four = subprocess.check_output(['cat', '/proc/cpuinfo'])[-5:-1].decode('utf-8')
+serial_last_four = get_serial()
+serial_last_four = serial_last_four[-4:] if len(serial_last_four) > 4 else serial_last_four  # get last 4 characters of serial
 config_hash = reset_lib.config_file_hash()
-ssid_prefix = config_hash['ssid_prefix'] + " "
+ssid_prefix = config_hash['ssid_prefix']
 reboot_required = False
 
 
