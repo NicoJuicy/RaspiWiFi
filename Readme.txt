@@ -92,7 +92,7 @@ USAGE:
 == Connect to the "RaspiWiFi[xxxx] Setup" access point using any other WiFi enabled
 device.
 
-== Navigate to [10.0.0.1], [onemeter-gateway.com], or
+== Navigate to [10.0.0.1], [onemeter.local], or
 [idliketoconfigurethewifionthisdevicenowplease.com] (I was debating whether this
 was funny or not and, yes, it was) using any web browser on the device you
 connected with. (don't forget to manually start with [https://] when using SSL mode)
