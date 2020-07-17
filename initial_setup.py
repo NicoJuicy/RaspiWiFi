@@ -59,8 +59,6 @@ print("##### OneMeter Gateway Setup Complete  #####")
 print("#####################################")
 print()
 print()
-print("Initial setup is complete. A reboot is required to start in WiFi configuration mode...")
-reboot_ans = input("Would you like to do that now? [y/N]: ")
+print("Initial setup is complete.")
 
-if reboot_ans.lower() == 'y':
-	os.system('reboot')
+print("Run sudo python3 manual_reset.py (in libs/reset_device) to finish.")
