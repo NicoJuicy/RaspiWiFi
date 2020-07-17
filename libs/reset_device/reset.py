@@ -24,7 +24,7 @@ GPIO.setup(18, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
 counter = 0
 serial_last_four = get_serial()
-serial_last_four = serial_last_four[-4:] if len(serial_last_four) > 4 else serial_last_four  # get last 4 characters of serial
+serial_last_four = ' ' + serial_last_four[-4:] if len(serial_last_four) > 4 else serial_last_four  # get last 4 characters of serial
 config_hash = reset_lib.config_file_hash()
 ssid_prefix = config_hash['ssid_prefix']
 reboot_required = False
@@ -32,7 +32,7 @@ reboot_required = False
 
 reboot_required = reset_lib.wpa_check_activate(config_hash['wpa_enabled'], config_hash['wpa_key'])
 
-reboot_required = reset_lib.update_ssid(ssid_prefix, serial_last_four)
+reboot_required = reset_lib.update_ssid(ssid_prefix, serial_last_four='')
 
 if reboot_required == True:
     os.system('reboot')
