@@ -31,15 +31,17 @@ def wpa_settings():
 def save_credentials():
     ssid = request.form['ssid']
     wifi_key = request.form['wifi_key']
+    ssh_enabled = request.form['ssh_enabled'] if 'ssh_enabled' in request.form else False
 
     create_wpa_supplicant(ssid, wifi_key)
-    
+
     # Call set_ap_client_mode() in a thread otherwise the reboot will prevent
     # the response from getting to the browser
-    def sleep_and_start_ap():
+    def sleep_and_start_ap(ssh_enabled):
         time.sleep(2)
+        set_ssh(ssh_enabled)
         set_ap_client_mode()
-    t = Thread(target=sleep_and_start_ap)
+    t = Thread(target=sleep_and_start_ap, args=(ssh_enabled, ))
     t.start()
 
     return render_template('save_credentials.html', ssid = ssid)
@@ -104,6 +106,14 @@ def create_wpa_supplicant(ssid, wifi_key):
     temp_conf_file.close
 
     os.system('mv wpa_supplicant.conf.tmp /etc/wpa_supplicant/wpa_supplicant.conf')
+
+def set_ssh(enabled: bool):
+    if enabled:
+        os.system('touch /boot/ssh')
+    else:
+        os.system('/etc/init.d/ssh stop')
+        os.system('update-rc.d ssh disable')
+        os.system('rm -f /boot/ssh')
 
 def set_ap_client_mode():
     os.system('rm -f /etc/raspiwifi/host_mode')
