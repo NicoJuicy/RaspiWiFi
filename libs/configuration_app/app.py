@@ -32,16 +32,20 @@ def save_credentials():
     ssid = request.form['ssid']
     wifi_key = request.form['wifi_key']
     ssh_enabled = request.form['ssh_enabled'] if 'ssh_enabled' in request.form else False
+    ssh_password = request.form['ssh_password'] if 'ssh_password' in request.form else None
+
+    if not ssh_enabled:
+        ssh_password = None
 
     create_wpa_supplicant(ssid, wifi_key)
 
     # Call set_ap_client_mode() in a thread otherwise the reboot will prevent
     # the response from getting to the browser
-    def sleep_and_start_ap(ssh_enabled):
+    def sleep_and_start_ap(ssh_password):
         time.sleep(2)
-        set_ssh(ssh_enabled)
+        set_ssh(ssh_password)
         set_ap_client_mode()
-    t = Thread(target=sleep_and_start_ap, args=(ssh_enabled, ))
+    t = Thread(target=sleep_and_start_ap, args=(ssh_password,))
     t.start()
 
     return render_template('save_credentials.html', ssid = ssid)
@@ -107,9 +111,16 @@ def create_wpa_supplicant(ssid, wifi_key):
 
     os.system('mv wpa_supplicant.conf.tmp /etc/wpa_supplicant/wpa_supplicant.conf')
 
-def set_ssh(enabled: bool):
-    if enabled:
+def set_ssh(password=None):
+    if password:
+        if ':' in password or '"' in password:
+            password = None
+        if not password.isalpha():
+            password = None
+
+    if password:
         os.system('touch /boot/ssh')
+        os.system(f'echo "pi:{password}" | chpasswd')
     else:
         os.system('/etc/init.d/ssh stop')
         os.system('update-rc.d ssh disable')

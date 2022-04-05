@@ -20,10 +20,17 @@
         <label for="wifi_key">Your Wifi password</label>
         <input type="password" name="wifi_key", class="wifiNetworkInputs form-control">
       </div>
-      <div class="form-group">
-        <label for="ssh_enabled">SSH enabled</label>
-        <input type="checkbox" name="ssh_enabled" class="form-control">
-      </div>
+      <details><summary>Advanced (optional)</summary>
+        <div class="form-group">
+          <label for="ssh_enabled">SSH enabled</label>
+          <input type="checkbox" name="ssh_enabled" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="ssh_password">SSH password</label>
+          <input type="password" name="ssh_password" class="form-control">
+          <span>Alphanumerical characters only. If you leave it empty, <b>SSH will be disabled</b>.</span>
+        </div>
+      </details>
       <button type="submit", class="wifiConnectButton btn btn-lg btn-success btn-block">Submit</button>
     </form>
 
