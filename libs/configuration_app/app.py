@@ -115,7 +115,7 @@ def set_ssh(password=None):
     if password:
         if ':' in password or '"' in password:
             password = None
-        if not password.isalpha():
+        if not password.isalnum():
             password = None
 
     if password:
